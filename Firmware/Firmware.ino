@@ -40,29 +40,27 @@ void loop()
     //Serial.print(F("Val: ")); Serial.println(pushButtonVal);
 }
 
-void displayText(String text) {
-  int textLen = text.length();
-  int parts = ceil((float) textLen / 16);
-  Serial.println(parts);
-  Serial.println(textLen);
+
+void displayText(string str) {
+
+    int textLen = str.length();
   
-  char textOutput[parts-1][15];
-  for (int j=0; j<parts ; j++) {
-    for (int i=0; i<16 ;i++) {
-      if (j>=1) {
-        textOutput[j][i] = text.charAt((16*(j-1))+i);
-      } else {
-        textOutput[j][i] = text.charAt(i); 
-      }
-      //Serial.println(text.charAt(i));
+    int parts = (ceil((float) textLen / 16)-1);
+    string finalTextParts[parts];
+    for (unsigned i = 0; i < str.length(); i += 16) {
+        int j = 0;
+        finalTextParts[j] = str.substr(i, 16);
+        j++;
+    }
+
+    // restliche implementierung 
     
-    }   
-  }
-  lcdI2C.clear();
+    
+  /*lcdI2C.clear();
 
   if (parts <= 2) {
      lcdI2C.print(textOutput[0]);
      lcdI2C.selectLine(2);
      lcdI2C.print(textOutput[1]); 
-  }
+  }*/
 }
