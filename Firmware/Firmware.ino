@@ -41,36 +41,37 @@ void loop()
 }
 
 
-void displayText(string text) {
+void displayText(String text) {
   int textLen = text.length();
   int parts = ceil((float) textLen / 16)-1;
 
     char txtArray[textLen];
     for (int i=0; i<textLen; i++) {
-        txtArray[i] = text.at(i); 
+        txtArray[i] = text.charAt(i); 
     }
     
     char textOutput[parts][15];
     for (int j=0; j<parts+1; j++) {
         for (int i=0; i<16 ;i++) {
             if (j>=1) {
-              textOutput[j][i] = txtArray[(16*(j))+i];
-              cout << "[" << j <<"] ["<<i<<"] - " << textOutput[j][i] <<endl;
+              textOutput[j][i] = txtArray[(15*(j))+i];
+              //cout << "[" << j <<"] ["<<i<<"] - " << textOutput[j][i] <<endl;
             } else {
               textOutput[j][i] = txtArray[i]; 
-              cout << "[" << j <<"] ["<<i<<"] - " << textOutput[j][i] <<endl;
+              //cout << "[" << j <<"] ["<<i<<"] - " << textOutput[j][i] <<endl;
             }
-            if (textOutput[j][i] == '\0') {
+            if (textOutput[j][i] == '\0' && j) {
+              textOutput[j][i] = '\0';
                 break;
             }
         }  
     }
   
-//   lcdI2C.clear();
+   lcdI2C.clear();
 
-//   if (parts <= 2) {
-//      lcdI2C.print(textOutput[0]);
-//      lcdI2C.selectLine(2);
-//      lcdI2C.print(textOutput[1]); 
-//   }
+   if (parts <= 2) {
+      lcdI2C.print(textOutput[0]);
+      lcdI2C.selectLine(2);
+      lcdI2C.print(textOutput[1]); 
+   }
 }
