@@ -5,7 +5,8 @@
 #include "Button.h"
 
 
-#define PUSHBUTTON_PIN_2  2
+
+#define PUSHBUTTON_PIN_2	2
 
 #define LCD_ADDRESS 0x27
 
@@ -27,7 +28,7 @@ void setup()
     lcdI2C.begin(LCD_COLUMNS, LCD_ROWS, LCD_ADDRESS, BACKLIGHT); 
     lcdI2C.clear(); 
     pushButton.init();
-    displayText("1234567890abcd"); 
+    displayText("1234567890qwertzuiopasdfghjkl"); 
     
 }
 
@@ -39,7 +40,6 @@ void loop()
     bool pushButtonVal = pushButton.read();
     //Serial.print(F("Val: ")); Serial.println(pushButtonVal);
 }
-
 
 void displayText(String text) {
   int textLen = text.length();
@@ -53,14 +53,13 @@ void displayText(String text) {
     char textOutput[parts][15];
     for (int j=0; j<parts+1; j++) {
         for (int i=0; i<16 ;i++) {
-            if (j>=1) {
-              textOutput[j][i] = txtArray[(15*(j))+i];
-              //cout << "[" << j <<"] ["<<i<<"] - " << textOutput[j][i] <<endl;
-            } else {
+            if (j==0) {
               textOutput[j][i] = txtArray[i]; 
-              //cout << "[" << j <<"] ["<<i<<"] - " << textOutput[j][i] <<endl;
+            } else {
+              textOutput[j][i] = txtArray[(15*j)+i];
             }
-            if (textOutput[j][i] == '\0' && j) {
+            
+            if (textOutput[j][i] == '\0') {
               textOutput[j][i] = '\0';
                 break;
             }
